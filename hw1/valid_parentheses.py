@@ -1,6 +1,9 @@
+from typing import List
+
+
 class Solution:
     def is_valid(self, string: str) -> bool:
-        stack = list()
+        stack: List = list()
         for char in string:
             if char in {"(", "{", "["}:
                 stack.append(char)

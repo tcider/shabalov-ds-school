@@ -12,7 +12,7 @@ class ListGenerator:
     def __call__(self):
         random.seed(42)
         for _ in range(self.n_tests):
-            res_num = random.randint(-sys.maxsize - 1, sys.maxsize)
+            res_num = random.randint(0, sys.maxsize)
             res_num_count = random.randint(0, self.list_size)
             res_size = random.randint(0, self.list_size)
             res = list()
@@ -21,7 +21,7 @@ class ListGenerator:
                     res.append(res_num)
                     continue
                 while True:
-                    tmp_num = random.randint(-sys.maxsize - 1, sys.maxsize)
+                    tmp_num = random.randint(0, sys.maxsize)
                     if tmp_num != res_num:
                         break
                 res.append(tmp_num)
@@ -33,7 +33,7 @@ class ListGenerator:
 
 # First param - number of tests(inputs)
 # Second param - max size of testing list
-@pytest.fixture(params=[[100, 1000]])
+@pytest.fixture(params=[[1000, 10000]])
 def random_data(request):
     return ListGenerator(request.param[0], request.param[1])()
 
