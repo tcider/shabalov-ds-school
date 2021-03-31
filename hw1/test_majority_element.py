@@ -4,6 +4,21 @@ import pytest
 from majority_element import majority_element
 
 
+@pytest.mark.parametrize(
+    "test_args, test_results",
+    [
+        ([], None),
+        ([1], 1),
+        ([1, 2], None),
+        ([1, 2, 3], None),
+        ([1, 2, 3, 2], None),
+        ([1, 2, 3, 2, 2], 2),
+    ],
+)
+def test_basic(test_args, test_results):
+    assert majority_element(test_args) == test_results
+
+
 class ListGenerator:
     def __init__(self, n_tests, list_size):
         self.n_tests = n_tests
@@ -38,21 +53,6 @@ def random_data(request):
     return ListGenerator(request.param[0], request.param[1])()
 
 
-class TestClass:
-    @pytest.mark.parametrize(
-        "test_args, test_results",
-        [
-            ([], None),
-            ([1], 1),
-            ([1, 2], None),
-            ([1, 2, 3], None),
-            ([1, 2, 3, 2], None),
-            ([1, 2, 3, 2, 2], 2),
-        ],
-    )
-    def test_basic(self, test_args, test_results):
-        assert majority_element(test_args) == test_results
-
-    def test_large(self, random_data):
-        for arg, res in random_data:
-            assert majority_element(arg) == res
+def test_large(random_data):
+    for arg, res in random_data:
+        assert majority_element(arg) == res
